@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class StartUpBust {
     public static ArrayList<Startup> setUpGame(String[] names, GameHelper helper) {
@@ -13,7 +14,7 @@ public class StartUpBust {
         return startups;
     }
 
-    public static boolean startPlaying(int numOfGuesses, int emptyCount, GameHelper helper, ArrayList<Startup> startups) {
+    public static Object[] startPlaying(int numOfGuesses, int emptyCount, GameHelper helper, ArrayList<Startup> startups) {
         System.out.println("Guess startup location in format (A1-G7)");
         while (emptyCount < 3) {
             String userInput = helper.getUserInput();                           //get user input
@@ -24,7 +25,7 @@ public class StartUpBust {
             System.out.println(result + "! There are currently " + (3 - emptyCount) + " startups remaining");
             numOfGuesses++;
         }
-        return true;
+        return new Object[]{true, numOfGuesses};
     }
 
     public static String[] checkUserInput(String userInput, int emptyCount, ArrayList<Startup> startups) {
@@ -46,13 +47,14 @@ public class StartUpBust {
         String[] names = {"rapidkl", "shopee", "remitly"};
         int numOfGuesses = 0;
         int emptyCount = 0;
-
         GameHelper helper = new GameHelper();                           //initialise helper
         ArrayList<Startup> startups = setUpGame(names, helper);         //creates the startups & calls helper to create random locations
-        boolean fin = startPlaying(numOfGuesses, emptyCount, helper, startups); //starts the game, loop till success or forfeit. calls checkUserInput
-
+        Object[] end = startPlaying(numOfGuesses, emptyCount, helper, startups); //starts the game, loop till success or forfeit. calls checkUserInput
+        boolean fin = (boolean) end[0];
+        numOfGuesses = (int) end[1];
         if (fin) {          //fin represents the outcome, whether user won or forfeited
-            System.out.println("you killed all the startups, congrats!\nYour stocks are now worthless");
+            System.out.println("you killed all the startups, in " + numOfGuesses + " guesses! congrats!\nYour stocks are now worthless");
+
         } else {
             System.out.println("better luck next time :(");
         }
