@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class StartUpBust {
@@ -12,6 +13,7 @@ public class StartUpBust {
             startups.get(i).setLocation(location);               //pass the location into the startup
         }
         return startups;
+
     }
 
     public static Object[] startPlaying(int numOfGuesses, int emptyCount, GameHelper helper, ArrayList<Startup> startups) {
@@ -24,6 +26,7 @@ public class StartUpBust {
 
             System.out.println(result + "! There are currently " + (3 - emptyCount) + " startups remaining");
             numOfGuesses++;
+            int[] nums = {69,42};
         }
         return new Object[]{true, numOfGuesses};
     }
@@ -58,6 +61,7 @@ public class StartUpBust {
         } else {
             System.out.println("better luck next time :(");
         }
+
 /* to do - display how many locations left in a startup when it is hit
          - end of game performance review
          - invalid input messages
