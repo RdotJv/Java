@@ -19,9 +19,10 @@ package org.example;
              getBookInfo("adv") will return basic info alongside the last member who used the book + the last
              librarian that set it*/
 
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-
         Librarian rachael = new Librarian("Rachael", 22, "L1");
 
         rachael.addBook("The Great Gatsby", "John Lennon maybe?", 269);
@@ -31,8 +32,29 @@ public class Main {
         mike.addBook("The Greatest Showman", "Geronimo Stilton", 805);
         mike.checkBook("The Greatest Showman");
 
-        //ArrayList<Book> books = mike.getBooks();
+        //ArrayList<Book> books = mike.getBooks();      ctrl click class and alt 7 to view methods
         //System.out.println(books);
-        mike.checkBook("the greatest shoe");
+        mike.checkBook("a");
+
+        HashMap<String, Integer> empIds = new HashMap<>();
+        empIds.put("pee", 420);
+        empIds.put("poo", 69);
+        empIds.put("pa", 649);
+        empIds.put("pe", 692);
+        empIds.put("pal", 619);
+
+
+
+        for (Map.Entry<String, Integer> entry : empIds.entrySet()) {
+            if (Objects.equals(entry.getValue(), 69)) {
+                entry.setValue(69420);
+            }
+            System.out.println(entry);
+
+        }
+        System.out.println(empIds.entrySet());
+        System.out.println(empIds.entrySet().getClass());
+
+
     }
 }

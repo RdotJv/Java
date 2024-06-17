@@ -1,6 +1,9 @@
 package org.example;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Objects;
 
 public abstract class User {
@@ -41,7 +44,7 @@ public abstract class User {
 }
 
 class Librarian extends User {
-    static ArrayList<Book> allBooks = new ArrayList<>();
+    static HashMap<String, HashMap<String, String>> allBooks = new HashMap<>();
 
 
     public Librarian(String name, int age, String id) {
@@ -49,13 +52,25 @@ class Librarian extends User {
     }
 
     public void addBook (String title, String author, int length) { //add book done from here so the librarian who added it can be tracked (lastSetBy)
-        allBooks.add(new Book(title, author, length, this));
+        Book cbook = new Book(title, author, length, this);
+
+        HashMap<String, String> dataBits = new HashMap<>();
+        dataBits.put("Author", cbook.getAuthor());
+        dataBits.put("length", ""+cbook.getLength());
+        dataBits.put("Availability", cbook.getIsAvailable("y/n"));
+        dataBits.put("Last set by", this.getName());
+        allBooks.put(cbook.getTitle(), dataBits);
+
     }
 
     public void checkBook(String search) {   //check if the specified title exists
         if (search.isBlank()) {
             System.out.println("please enter a title in checkBook(__)");
             return;
+        }
+
+        if (allBooks.containsKey(search)) {
+
         }
 
         for (Book book : allBooks) {
@@ -68,13 +83,14 @@ class Librarian extends User {
 
         ArrayList<String> potentialSearches = getBooks("check typos", search);
         if (!potentialSearches.isEmpty()) {
-            System.out.print("Did you mean : ");
+            System.out.print("Did you mean [");
         }
         if (potentialSearches.size()>1) {
-            System.out.println(String.join(" or ", potentialSearches) + " ?\n" + potentialSearches.size()+" potential answers found");
+            System.out.println(String.join(" or ", potentialSearches) + "] ?\n" + potentialSearches.size()+" potential answers found");
         } else if (potentialSearches.size()==1) {
             for (Book i : getBooks()) {
-                System.out.println( potentialSearches.getFirst()+ " ?");
+
+                System.out.println( potentialSearches.getFirst()+ "] ?");
                 if (Objects.equals(i.getTitle(), potentialSearches.getFirst())) {
                     i.getBookInfo();
                 }

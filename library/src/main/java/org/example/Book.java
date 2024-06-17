@@ -19,6 +19,13 @@ public class Book {
     public void setLength(int length) {this.length = length;}
 
     public boolean getIsAvailable() {return isAvailable;}
+    public String getIsAvailable(String a) {
+        if (isAvailable) {
+           return "Yes";
+        } else {
+            return "No";
+        }
+    }
     public void setIsAvailable(boolean available) {isAvailable = available;}
 
     public Librarian getLastSetBy() {return lastSetBy;}
